@@ -1,28 +1,51 @@
 ---
-// src/pages/sutras/[id].astro — Museum-quality parallel reader
+// src/pages/sutras/[id].astro — Static parallel reader (reads from JSON corpus, no DB)
 import Base from '../../layouts/Base.astro';
-import { getTextById, getSegmentsByText, getTextsByWork } from '../../lib/db';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-const { id } = Astro.params;
-const textId = Number(id);
-const text = getTextById(textId);
+export const prerender = true;
 
-if (!text) return Astro.redirect('/texts');
+// ── Static paths: enumerate all texts from index.json ────────────────────────
 
-const allSegments = getSegmentsByText(textId);
-const segments = allSegments.filter(s => s.th);
-const totalSegments = allSegments.length;
+export function getStaticPaths() {
+  const CORPUS_DIR = join(process.cwd(), 'data', 'corpus-export');
+  const index = JSON.parse(readFileSync(join(CORPUS_DIR, 'index.json'), 'utf-8'));
+
+  const allTexts = index.map(entry =>
+    JSON.parse(readFileSync(join(CORPUS_DIR, entry.file), 'utf-8'))
+  );
+
+  return allTexts.map(text => {
+    const juanSiblings = text.cbeta_id
+      ? allTexts
+          .filter(t => t.cbeta_id === text.cbeta_id)
+          .sort((a, b) => a.juan - b.juan)
+      : [];
+
+    return {
+      params: { id: String(text.id) },
+      props: { text, juanSiblings },
+    };
+  });
+}
+
+// ── Page data ─────────────────────────────────────────────────────────────────
+
+const { text, juanSiblings } = Astro.props;
+
+const segments = text.segments.filter(s => s.th);
+const totalSegments = text.segments.length;
 const pctTranslated = totalSegments
   ? Math.round((segments.length / totalSegments) * 100)
   : 0;
 
-const juanSiblings = text.cbeta_id ? getTextsByWork(text.cbeta_id) : [];
-const juanIdx = juanSiblings.findIndex(j => j.id === textId);
+const juanIdx = juanSiblings.findIndex(j => j.id === text.id);
 const prevJuan = juanSiblings[juanIdx - 1] ?? null;
 const nextJuan = juanSiblings[juanIdx + 1] ?? null;
 const hasMultipleJuan = juanSiblings.length > 1;
 
-function isVerseSegment(seg: { zh: string }): boolean {
+function isVerseSegment(seg) {
   return seg.zh.includes('\n') || /^[　\s]/.test(seg.zh);
 }
 ---
@@ -70,9 +93,9 @@ function isVerseSegment(seg: { zh: string }): boolean {
             {juanSiblings.map((j) => (
               <a
                 href={`/sutras/${j.id}`}
-                class={`juan-dot ${j.id === textId ? 'juan-dot-active' : ''}`}
+                class={`juan-dot ${j.id === text.id ? 'juan-dot-active' : ''}`}
                 aria-label={`卷${j.juan}`}
-                aria-current={j.id === textId ? 'page' : undefined}
+                aria-current={j.id === text.id ? 'page' : undefined}
                 title={`卷${j.juan}`}
               >
                 <span class="juan-dot-inner" />
@@ -92,10 +115,7 @@ function isVerseSegment(seg: { zh: string }): boolean {
       )}
 
       <div class="sutra-actions">
-        <a href={`/texts/${textId}`} class="action-link">
-          <span class="action-icon">✎</span><span>แก้ไข</span>
-        </a>
-        <a href={`/api/export/${textId}`} class="action-link" download>
+        <a href={`/api/export/${text.id}`} class="action-link" download>
           <span class="action-icon">↓</span><span>JSON</span>
         </a>
       </div>
@@ -162,14 +182,12 @@ function isVerseSegment(seg: { zh: string }): boolean {
 </Base>
 
 <style>
-/* ── Container ── */
 .sutra-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 3rem 2rem 6rem;
 }
 
-/* ── Masthead ── */
 .sutra-masthead {
   text-align: center;
   padding-bottom: 3rem;
@@ -216,15 +234,9 @@ function isVerseSegment(seg: { zh: string }): boolean {
   font-size: 0.78rem;
 }
 
-.meta-juan {
-  font-family: var(--font-zh);
-  color: var(--ink-light);
-  letter-spacing: 0.1em;
-}
-
+.meta-juan { font-family: var(--font-zh); color: var(--ink-light); letter-spacing: 0.1em; }
 .meta-divider { color: var(--border); }
 
-/* ── Progress ── */
 .translation-progress {
   display: flex;
   align-items: center;
@@ -246,13 +258,8 @@ function isVerseSegment(seg: { zh: string }): boolean {
   background: linear-gradient(90deg, var(--gold-dim), var(--gold));
 }
 
-.progress-label {
-  font-size: 0.72rem;
-  color: var(--ink-light);
-  letter-spacing: 0.03em;
-}
+.progress-label { font-size: 0.72rem; color: var(--ink-light); }
 
-/* ── Juan Nav ── */
 .juan-nav {
   display: flex;
   align-items: center;
@@ -274,7 +281,6 @@ function isVerseSegment(seg: { zh: string }): boolean {
 }
 .juan-link:hover { color: var(--gold); background: var(--gold-pale); }
 .juan-disabled { opacity: 0.25; cursor: default; pointer-events: none; }
-
 .juan-arrow { font-size: 1.2rem; color: var(--gold); line-height: 1; }
 .juan-label { font-family: var(--font-zh); letter-spacing: 0.08em; }
 
@@ -296,7 +302,6 @@ function isVerseSegment(seg: { zh: string }): boolean {
 .juan-dot-inner { width: 3px; height: 3px; border-radius: 50%; background: white; opacity: 0; }
 .juan-dot-active .juan-dot-inner { opacity: 1; }
 
-/* ── Actions ── */
 .sutra-actions {
   display: flex;
   justify-content: center;
@@ -318,12 +323,10 @@ function isVerseSegment(seg: { zh: string }): boolean {
 .action-link:hover { opacity: 1; color: var(--gold); background: var(--gold-pale); }
 .action-icon { font-size: 0.85rem; }
 
-/* ── Column Headers ── */
 .column-headers {
   display: grid;
   grid-template-columns: 3rem 1fr 1fr;
   border-bottom: 2px solid var(--border);
-  margin-bottom: 0;
 }
 
 .col-header {
@@ -333,10 +336,7 @@ function isVerseSegment(seg: { zh: string }): boolean {
   gap: 0.15rem;
 }
 
-.col-header-zh {
-  grid-column: 2;
-  border-right: 1px solid var(--border-soft);
-}
+.col-header-zh { grid-column: 2; border-right: 1px solid var(--border-soft); }
 
 .col-label {
   font-size: 0.68rem;
@@ -345,7 +345,6 @@ function isVerseSegment(seg: { zh: string }): boolean {
   text-transform: uppercase;
   color: var(--ink);
 }
-
 .col-header-zh .col-label { font-family: var(--font-zh); }
 
 .col-sublabel {
@@ -355,7 +354,6 @@ function isVerseSegment(seg: { zh: string }): boolean {
   letter-spacing: 0.08em;
 }
 
-/* ── Rows ── */
 .sutra-content {
   border-left: 1px solid var(--border-soft);
   border-right: 1px solid var(--border-soft);
@@ -374,7 +372,6 @@ function isVerseSegment(seg: { zh: string }): boolean {
 .parallel-row-verse { background: rgba(184,148,63,0.018); }
 .parallel-row-verse:hover { background: rgba(184,148,63,0.04); }
 
-/* ── Line Number ── */
 .line-marker {
   display: flex;
   align-items: flex-start;
@@ -395,11 +392,9 @@ function isVerseSegment(seg: { zh: string }): boolean {
 }
 .line-anchor:hover { color: var(--gold); }
 
-/* ── Text Columns ── */
 .text-col { padding: 1.25rem 1.5rem; }
 .col-chinese { border-right: 1px solid var(--border-soft); }
 
-/* ── Chinese Typography ── */
 .chinese-text {
   font-family: var(--font-zh);
   font-size: 1.1rem;
@@ -429,7 +424,6 @@ function isVerseSegment(seg: { zh: string }): boolean {
   opacity: 0.5;
 }
 
-/* ── Thai Typography ── */
 .thai-text {
   font-family: var(--font-th);
   font-size: 1.05rem;
@@ -457,7 +451,6 @@ function isVerseSegment(seg: { zh: string }): boolean {
   opacity: 0.45;
 }
 
-/* ── Scholar Notes ── */
 .scholar-note {
   margin-top: 0.85rem;
   padding: 0.65rem 0.9rem;
@@ -481,7 +474,6 @@ function isVerseSegment(seg: { zh: string }): boolean {
   margin-top: 0.05rem;
 }
 
-/* ── Colophon ── */
 .sutra-colophon {
   margin-top: 5rem;
   padding-top: 3rem;
@@ -518,13 +510,8 @@ function isVerseSegment(seg: { zh: string }): boolean {
   margin-bottom: 0.4rem;
 }
 .colophon-sep { color: var(--border); margin: 0 0.4rem; }
-.colophon-sub {
-  font-size: 0.72rem;
-  color: var(--border);
-  letter-spacing: 0.08em;
-}
+.colophon-sub { font-size: 0.72rem; color: var(--border); letter-spacing: 0.08em; }
 
-/* ── Responsive ── */
 @media (max-width: 900px) {
   .sutra-container { padding: 2rem 1.25rem 4rem; }
   .text-col { padding: 1rem 1.1rem; }
@@ -561,13 +548,11 @@ function isVerseSegment(seg: { zh: string }): boolean {
     opacity: 0.65;
     display: block;
     margin-bottom: 0.4rem;
-    letter-spacing: 0.05em;
   }
   .juan-label { display: none; }
   .juan-dot { width: 8px; height: 8px; }
 }
 
-/* ── Print ── */
 @media print {
   .sutra-container { max-width: none; padding: 0; }
   .masthead-ornament, .juan-nav, .sutra-actions,
@@ -580,6 +565,5 @@ function isVerseSegment(seg: { zh: string }): boolean {
   .thai-text { font-size: 10.5pt; line-height: 2; }
   .scholar-note { font-size: 9pt; background: #f8f8f8 !important; }
   .sutra-colophon { border-top: 1pt solid #ccc; }
-  .colophon-text, .colophon-sub { color: #666; }
 }
 </style>
