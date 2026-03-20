@@ -1,0 +1,20 @@
+[
+  {
+    "id": 2,
+    "title": "大乘百法明門論",
+    "cbeta_id": "T1614",
+    "source": "cbeta",
+    "segments": 17,
+    "translated": 16,
+    "file": "T1614.json"
+  },
+  {
+    "id": 1,
+    "title": "大乘成業論",
+    "cbeta_id": "T1609",
+    "source": "cbeta",
+    "segments": 230,
+    "translated": 0,
+    "file": "T1609.json"
+  }
+]

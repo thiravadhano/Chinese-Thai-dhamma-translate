@@ -1,0 +1,1622 @@
+{
+  "id": 1,
+  "title": "大乘成業論",
+  "source": "cbeta",
+  "cbeta_id": "T1609",
+  "created_at": "2026-03-19 15:18:24",
+  "juan": 1,
+  "total_juans": null,
+  "exported_at": "2026-03-20T08:53:04.198Z",
+  "segments": [
+    {
+      "seq": 1,
+      "zh": "No. 1609 [No. 1608]大乘成業論一卷世親菩薩造大唐三藏法師玄奘奉　詔譯如處處經中世尊說三業，謂身業、語業、意業。",
+      "th": "",
+      "status": "reviewed",
+      "notes": null
+    },
+    {
+      "seq": 2,
+      "zh": "此中有說身所造業故名身業，語即是業故名語業，此二皆用表與無表為其自性。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 3,
+      "zh": "意相應業故名意業，此業但以思為自性。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 4,
+      "zh": "今於此中何法名表？且身表業形色為性，緣此為境心等所生。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 5,
+      "zh": "誰之形色謂身形色？若身形色，何故前言身所造業故名身業？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 6,
+      "zh": "謂總名身一分攝故，名身形色。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 7,
+      "zh": "依身大種而發生故，名身所造。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 8,
+      "zh": "以總身言於別亦轉，如世間說居邑住林。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 9,
+      "zh": "何緣復說緣此為境心等所生？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 10,
+      "zh": "為欲簡彼脣等形色，彼非緣彼心等所生，以緣言音心等生故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 11,
+      "zh": "又為簡彼宿願心等所引形色，彼非緣彼心等所生，餘異熟因心等生故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 12,
+      "zh": "何故名表？此能表示自發業心令他知故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 13,
+      "zh": "為顯此義，故說頌言：",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 14,
+      "zh": "\u0000VERSE\u00000\u0000\u0000VERSE\u00001\u0000\u0000VERSE\u00002\u0000形色者何？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 15,
+      "zh": "謂長等性。何者長等？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 16,
+      "zh": "謂於彼生長等名想。此攝在何處？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 17,
+      "zh": "謂色處所攝。今應思擇：長等為是極微差別猶如顯色？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 18,
+      "zh": "為是極微差別積聚？為別一物遍色等聚？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 19,
+      "zh": "設爾何失？長等若是極微差別，應如顯色，諸色聚中一一細分，長等可取。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 20,
+      "zh": "若是極微差別積聚，此與顯色極微積聚有何差別？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 21,
+      "zh": "即諸顯色積聚差別應成長等。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 22,
+      "zh": "若別一物遍色等聚，一故遍故，一一分中應全可取，於一切分皆具有故；",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 23,
+      "zh": "或應非一，於諸分中各別住故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 24,
+      "zh": "又壞自宗十處皆是極微積聚。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 25,
+      "zh": "又應朋助食米齊宗執實有分遍諸分故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 26,
+      "zh": "即於和合諸聚色中，見一面多便起長覺、見一面少便起短覺、見四面等便起方覺、見諸面滿便起圓覺、見中凸出便起高覺、見中坳凹便起下覺、見面齊平起於正覺、見面參差起不正覺，如旋轉輪觀錦繡時便生種種異形類覺，不應實有異類形色同在一處如諸顯色。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 27,
+      "zh": "若許爾者，應於一一處起一切形覺。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 28,
+      "zh": "然無是事，是故形色無別有體，即諸顯色於諸方面安布不同起長等覺，如樹蟻等行列無過。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 29,
+      "zh": "若爾云何？於遠闇處不了顯色，了形色耶？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 30,
+      "zh": "如何不了樹等形色，而能了彼行列形耶？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 31,
+      "zh": "然離樹等無別行列，或於遠闇諸聚色中若顯若形俱不能了，雖復能取而不分明，疑是何物、此何所見？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 32,
+      "zh": "由是應知但取顯色，由遠闇故見不分明，故表是形理不成立。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 33,
+      "zh": "有說：身表行動為性，緣此為境，心等所生。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 34,
+      "zh": "何緣復說緣此為境心等所生？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 35,
+      "zh": "為欲簡彼脣等搖動，彼非緣彼心等所生，以緣言音心等生故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 36,
+      "zh": "云何名行動？謂轉至餘方。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 37,
+      "zh": "此攝在何處？謂色處所攝。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 38,
+      "zh": "何緣知此轉至餘方？謂差別相不可知故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 39,
+      "zh": "此理不然，如熟變物，雖纔觸火，光雪酢等諸熟變緣即有差別，而不可知彼差別相。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 40,
+      "zh": "然彼前後非無有異，此亦應然。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 41,
+      "zh": "如長薪草眾分相似，各別生焰雖有差別，而不可知彼差別相。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 42,
+      "zh": "然彼眾分非無有異，此亦應然。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 43,
+      "zh": "若熟變物纔觸緣時諸熟變相不即生者，彼於後時亦應不生，緣無異故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 44,
+      "zh": "若長薪草眾分相似非分分中別生焰者，彼焰應無，由彼別故形量照明焰熱差別。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 45,
+      "zh": "是故不應以差別相不可知故，便謂即此轉至餘方，應審了知彼差別相。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 46,
+      "zh": "若謂滅因不可得故，知即此法轉至餘方。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 47,
+      "zh": "此亦非理，如心心所聲燈焰等，有何滅因而念念滅？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 48,
+      "zh": "餘亦應爾，滅不待因。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 49,
+      "zh": "若言心等亦有滅因，謂唯各別自無常相。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 50,
+      "zh": "若爾，何故餘不許然？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 51,
+      "zh": "餘既不然，此云何爾？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 52,
+      "zh": "故知心等滅不待因。心等既然，餘亦應爾。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 53,
+      "zh": "若餘法滅不待因者，薪等未與火等合前，彼色等性應不可取。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 54,
+      "zh": "如合後位，後亦應如前位可取。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 55,
+      "zh": "如何風手未觸未執燈鈴已前，燈焰鈴聲分明可取非於後位？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 56,
+      "zh": "然焰聲滅不待風手，薪等亦然不應為難。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 57,
+      "zh": "又若薪等由火等滅，彼色等性不可取者，纔觸無間應不可取，彼纔觸時有差別故，又彼外緣無差別故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 58,
+      "zh": "諸熟變物下中上品，諸熟變相差別生時，由彼為因，後後生起、前前滅壞。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 59,
+      "zh": "誰復為因？不應此法由彼故生，即此復由彼法故滅，二相違法非共一因，世極成立。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 60,
+      "zh": "故有為法不待滅因，任運自滅。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 61,
+      "zh": "如前可取、不可取者，應知相續隨轉滅壞差別之相有微增故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 62,
+      "zh": "又若滅法亦有因者，是則應無無因滅法。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 63,
+      "zh": "心心所等如待因生，滅亦應爾，非離心等別有無常世共成立。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 64,
+      "zh": "又因異故滅應差別，如火光雪酢等異故熟變差別。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 65,
+      "zh": "又已滅法應更可滅，許有因故，猶如色等。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 66,
+      "zh": "是故滅法決定無因。滅無因故纔生即滅，故知無有轉至餘方。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 67,
+      "zh": "若謂生因不可得故，知即此法轉至餘方。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 68,
+      "zh": "此亦非理，有生因故，謂前與後而作生因，如前念心與後念心、前念熟變與後熟變、乳與其酪、葡萄汁與酒、酒復與酢等，故無少法轉至餘方。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 69,
+      "zh": "轉相既無，何有行動？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 70,
+      "zh": "又若有住則無行動，既無行動彼應常住。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 71,
+      "zh": "法若無住亦無行動，纔生即滅，無動義故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 72,
+      "zh": "若爾，現見行動者何？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 73,
+      "zh": "餘方所見，非即本物。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 74,
+      "zh": "何緣知彼非本物耶？由彼彼方新新生故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 75,
+      "zh": "如草火焰及如影行，非此方影餘方可見形質不動，日等光明遠近迴轉，便見彼影或長或短或移轉故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 76,
+      "zh": "又障光明少分生故。有反詰言：何緣徵難至餘方義？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 77,
+      "zh": "且如何知餘方所見非即本物？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 78,
+      "zh": "此亦應引前理為證，謂若有住則無動等。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 79,
+      "zh": "又外火等緣無差別，而於後時差別可取，由此證知念念各別。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 80,
+      "zh": "又若以證異因無故，謂餘所見還是本物。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 81,
+      "zh": "既無有因，證即本物，何緣不謂非本物耶？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 82,
+      "zh": "由此二義應俱不定，故至餘方義不成立。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 83,
+      "zh": "日出論者作如是言：諸行實無至餘方義，有為法性念念滅故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 84,
+      "zh": "然別有法心差別為因，依手足等起，此法能作手足等物。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 85,
+      "zh": "異方生因是名行動，亦名身表。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 86,
+      "zh": "此攝在何處？謂色處所攝。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 87,
+      "zh": "若爾，何緣不許眼見如諸顯色？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 88,
+      "zh": "既非所見、不表示他，如何名表？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 89,
+      "zh": "復云何知此法實有？云何此法能令自身轉趣餘方別異而起？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 90,
+      "zh": "若言由心差別，所生風界即應如是。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 91,
+      "zh": "風界其性是動，足能為彼異方生因。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 92,
+      "zh": "何乃離風執有動法？又草葉等離外風界無別動法，云何移轉？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 93,
+      "zh": "然諸風界搖觸等生，其性能動，即應許彼能令手等轉餘方生，何勞別執？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 94,
+      "zh": "若體若用俱不極成能動法生。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 95,
+      "zh": "若不爾者，即心差別所生風界，能為手等異方生因，應是身表。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 96,
+      "zh": "如是風界無所表示，云何名表？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 97,
+      "zh": "又許觸處是善不善，便非釋子。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 98,
+      "zh": "若不爾者，即心差別能令自身餘方生起，即身生起，應是身表。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 99,
+      "zh": "是則身表應假非實，自身多法合為體故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 100,
+      "zh": "又無表示，云何名表？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 101,
+      "zh": "香等不能表示他故。又許香等是善不善，便非釋子。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 102,
+      "zh": "若不爾者，即心差別所生顯色應是身表，顯色非心差別所起，自種子風差別生故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 103,
+      "zh": "又許顯色是善不善，便非釋子。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 104,
+      "zh": "若此顯色體非身表，此餘方生應是身表。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 105,
+      "zh": "天愛任汝於此表業盡力所能勤加轉計，然此非用功力能成，何乃於中徒生勞倦？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 106,
+      "zh": "誰能成立生別有體？此所執生，非如色等是所現見、非如眼等是能現見，何緣知有？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 107,
+      "zh": "又不可見，云何名表？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 108,
+      "zh": "前說不能表示他故。又若顯色是善不善，可說此生為身表業。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 109,
+      "zh": "然諸顯色非善不善，前已說故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 110,
+      "zh": "生亦應然，是故定無身實表業。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 111,
+      "zh": "若爾，身業應唯無表。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 112,
+      "zh": "此無表名為目何法？謂法處攝律儀色等。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 113,
+      "zh": "云何欲界有善無表離表而發？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 114,
+      "zh": "若欲界中有此無表，復有何過？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 115,
+      "zh": "應隨心轉，如在色界。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 116,
+      "zh": "是則餘心及無心位，應無律儀不律儀等。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 117,
+      "zh": "若謂受時要期發語所引發故無斯過者，說戒經時默無所說亦無要期，如何獲得虛誑語罪。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 118,
+      "zh": "又應無有無記身業，以無表業唯二種故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 119,
+      "zh": "又亦應無一剎那頃善惡身業，以諸無表定相續故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 120,
+      "zh": "謂若輕心不發無表，重心所發決定相續，雖彼隨情計度，實有身語業色，而不應成善不善性。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 121,
+      "zh": "所以者何？彼說色業於命終位必皆捨故，如何由此能得當來愛非愛果？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 122,
+      "zh": "有作是言：此何非理。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 123,
+      "zh": "謂過去業其體實有，能得當來所感果故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 124,
+      "zh": "此於癰上更復生癰，謂執過去業體實有，先有後無名為過去，如何可執其體實有？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 125,
+      "zh": "若爾，世尊何故自說：",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 126,
+      "zh": "\u0000VERSE\u00003\u0000\u0000VERSE\u00004\u0000\u0000VERSE\u00005\u0000\u0000VERSE\u00006\u0000\u0000VERSE\u00007\u0000\u0000VERSE\u00008\u0000\u0000VERSE\u00009\u0000\u0000VERSE\u000010\u0000\u0000VERSE\u000011\u0000\u0000VERSE\u000012\u0000\u0000VERSE\u000013\u0000世尊依此，於解深密大乘經中說如是頌：\u0000VERSE\u000014\u0000\u0000VERSE\u000015\u0000\u0000VERSE\u000016\u0000\u0000VERSE\u000017\u0000能續後有、能執持身，故說此名阿陀那識。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 127,
+      "zh": "攝藏一切諸法種子，故復說名阿賴耶識。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 128,
+      "zh": "前生所引業異熟故，即此亦名異熟果識。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 129,
+      "zh": "若不許有此異熟識，復有何識能執持身？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 130,
+      "zh": "非有餘識能遍持身，乃至命終恒不捨故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 131,
+      "zh": "又何處蘊煩惱隨眠對治生時可名能斷。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 132,
+      "zh": "若言蘊在能對治心，此不應理，如何隨眠煩惱隨逐可為能治？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 133,
+      "zh": "又諸有情生無色界，染善無漏心正起時，有何趣攝異熟法在？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 134,
+      "zh": "或應許趣通非異熟及不繫法，便與理違。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 135,
+      "zh": "又不還果生有頂處，為盡餘漏修對治道。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 136,
+      "zh": "無所有處無漏起時，於有頂處有何別物自體猶存，而不名死、非眾同分？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 137,
+      "zh": "或復命根離色心等別有實物。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 138,
+      "zh": "此二唯於異熟諸蘊相似勢分而假建立。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 139,
+      "zh": "相似勢分無別實體，如稻稗等相似勢分，故定應許異六識身有如上說持種識體。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 140,
+      "zh": "即依此識，赤銅鍱部經中建立有分識名、大眾部經名根本識、化地部說窮生死蘊。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 141,
+      "zh": "云何此識緣境行相？此境行相不可了知。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 142,
+      "zh": "云何名識而得如是？如執滅定等位有餘，識者境界行相難知，此亦應爾。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 143,
+      "zh": "此識攝在何取蘊中？理實應言識取蘊攝。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 144,
+      "zh": "若爾，經句當云何通？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 145,
+      "zh": "如說：云何名識取蘊？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 146,
+      "zh": "謂六識身。又說：云何識緣名色？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 147,
+      "zh": "識謂六識。應知此經別有密意，如契經說：云何行蘊？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 148,
+      "zh": "謂六思身。非行蘊中更無餘法，此亦應爾。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 149,
+      "zh": "說六非餘有何密意？且如世尊《解深密》說，「我於凡愚不開演」者，「恐彼分別執為我」故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 150,
+      "zh": "何緣愚夫執此為我？此無始來窮生死際行相微細無改變故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 151,
+      "zh": "又以六識所依所緣行相品類麁易了故，與諸煩惱及對治道有相應故，建立雜染清淨品故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 152,
+      "zh": "體是果識，由此比知有種識故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 153,
+      "zh": "諸契經中隨所宜說，不說因識，與上所說皆相違故，是名說六非餘密意。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 154,
+      "zh": "由此已釋餘部經中唯說六識身為有分識等，隨其所應皆無違害。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 155,
+      "zh": "又於今時一一部內無量契經皆已隱沒，如《釋軌論》廣辯應知，故不應計阿賴耶識定非經說，理必有故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 156,
+      "zh": "若爾，一身應有二識俱時而轉，謂異熟識及餘轉識。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 157,
+      "zh": "如是何過？若一身中二識俱轉，應俱時立二有情身，如餘身中二識俱轉。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 158,
+      "zh": "此無有失，因果二識展轉為依，不相離故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 159,
+      "zh": "又異熟識是餘轉識所熏習故，非異身中二識俱轉有如是事，故無此失。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 160,
+      "zh": "頗有現見種與種果相續異耶？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 161,
+      "zh": "現見世間青蓮花等，根與莖等相續各異而為種果，此亦應然。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 162,
+      "zh": "又縱世間見與不見，若不許有阿賴耶識，便有如前所說過難，故應定許阿賴耶識離六識身其體實有。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 163,
+      "zh": "何緣不許我體實有，與六識身為所依止？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 164,
+      "zh": "汝所執我其相云何，而說能為六識依止？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 165,
+      "zh": "若許我如阿賴耶識生滅相續隨緣轉變，與識何殊而執為我？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 166,
+      "zh": "若執我體是一是常畢竟無變，如何可說受識等熏為所依止？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 167,
+      "zh": "夫熏習者，令彼所熏相續變成功能差別，如紫礦汁熏拘櫞花，令彼相續功能轉變。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 168,
+      "zh": "若無熏習，則無轉變差別功能。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 169,
+      "zh": "如何先時領智貪等？數習異故，後經久時念智貪等生起差別。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 170,
+      "zh": "又無心位與彼後時我體無別，今既無識，後意識等從何而生？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 171,
+      "zh": "又於識等我有何能，而執我為識等依止？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 172,
+      "zh": "若言識等因我故生，我體恒時既無差別，如何識等漸次而生，非於一時一切頓起？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 173,
+      "zh": "若謂更待餘因緣助方能生者，離餘因緣如何知有我能生用？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 174,
+      "zh": "若言識等依我而轉，諸法纔生無間即滅，既無住義何容有轉？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 175,
+      "zh": "故不應執我體實有，與六識身為所依止。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 176,
+      "zh": "又執有我，違阿笈摩說一切法皆無有我，故汝所執一常實我，都無正理，但率妄情。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 177,
+      "zh": "由此證成，但思差別熏習同時，阿賴耶識令其相續轉變差別，能引當來愛非愛果，非如彼說身語業相。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 178,
+      "zh": "若不許有身語二業，豈能遺謗三業契經？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 179,
+      "zh": "不能遺謗，然能如理解釋此經令無過失。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 180,
+      "zh": "如何無失解釋此經？應除執毒，當為廣說。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 181,
+      "zh": "何為契經說有三業？何者是身？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 182,
+      "zh": "何者是業？何義名身？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 183,
+      "zh": "何義名業？復以何義名為身業語業意業？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 184,
+      "zh": "問亦如是。復以何緣，契經唯說身等三業，非眼等耶？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 185,
+      "zh": "何為契經說三業者，為顯三業攝十業道，勸勵怖多所作者故，如略說三學授佛栗氏子。",
+      "th": "",
+      "status": "reviewed",
+      "notes": null
+    },
+    {
+      "seq": 186,
+      "zh": "有執諸業唯身所造非語非意，為顯彼二亦有所造，故說三業。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 187,
+      "zh": "身謂諸根大造和合，差別為體。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 188,
+      "zh": "業即是思，差別為性。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 189,
+      "zh": "積集所成是為身義，大造極微積集成故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 190,
+      "zh": "有說種種穢惡集成是為身義，身是種種諸不淨物所依處故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 191,
+      "zh": "若爾，天趣應無有身。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 192,
+      "zh": "隨作者意有所造作，是為業義。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 193,
+      "zh": "能動身思，說名身業。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 194,
+      "zh": "思有三種：一審慮思、二決定思、三動發思。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 195,
+      "zh": "若思能動身，即說為身業。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 196,
+      "zh": "此思能引令身相續異方生因，風界起故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 197,
+      "zh": "具足應言動身之業，除動之言，但名身業，如益力之油但名力油，如動塵之風但名塵風，此亦如是。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 198,
+      "zh": "十業道中，初三業道許身業攝，謂殺生、不與取、欲邪行。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 199,
+      "zh": "如何思業而得彼名？由此思業能動其身，令行殺、盜及邪行故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 200,
+      "zh": "思力動身令有所作，即名思作，如世間說狂賊燒村薪草熟飯。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 201,
+      "zh": "思復云何得名業道？思有造作故名為業，復與善趣惡趣為道，通生彼故得業道名。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 202,
+      "zh": "或所動身是思業道，三種思業依彼轉故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 203,
+      "zh": "又殺盜婬由思業起、依身而生，隨世俗故亦名身業。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 204,
+      "zh": "然此實非善不善性，亦隨世俗假立其名，為令世間依此門故，於善惡思勤修止作，是故假說善不善名。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 205,
+      "zh": "若唯思業是善不善，何故業道契經中言：由身三種故思造業，作及增長是不善故，能生苦果及苦異熟。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 206,
+      "zh": "此經意說，能動於身、以身為門、身為依處，緣殺盜婬為境，思業為因，能感苦果異熟名身三種，故思造業。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 207,
+      "zh": "除此，餘思名為意業，意相應故、不能動發身及語故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 208,
+      "zh": "若爾，何緣經說：二業，所謂思業及思已業。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 209,
+      "zh": "即前所說三種思中，初二種思名為思業，第三一思名思已業，無違經過。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 210,
+      "zh": "語謂語言，音聲為性，此能表了所欲說義，故名為語。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 211,
+      "zh": "能發語思，說名語業。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 212,
+      "zh": "或復語者，字等所依，由帶字等能詮表義，故名為語。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 213,
+      "zh": "具足應言發語之業，除發之言，但名語業，喻說如前。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 214,
+      "zh": "意者謂識，能思量故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 215,
+      "zh": "趣向餘生及境界故，說名為意。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 216,
+      "zh": "作動意思，說名意業，令意造作善不善等種種事故。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 217,
+      "zh": "具足應言作意之業，除作之言，但名意業。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 218,
+      "zh": "或意相應業名意業，除相應言，但名意業，喻說如前。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 219,
+      "zh": "若三種業但思為體，於散亂心及無心位爾時無思，如何得有名具律儀不律儀者？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 220,
+      "zh": "由思差別所熏成種不損壞故，名具律儀不律儀者，故無有過。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 221,
+      "zh": "思差別者，簡取勝思能發律儀不律儀表。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 222,
+      "zh": "由此思故，熏成二種殊勝種子，依二種子未損壞位，假立善惡律儀無表。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 223,
+      "zh": "齊何當言損壞如是由思差別所熏成種？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 224,
+      "zh": "謂從此後不作因生遮不遮思。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 225,
+      "zh": "如先所受，誰能損壞如是種子？",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 226,
+      "zh": "謂若有思能發於表，因此棄捨善惡律儀，及餘捨因亦能損壞。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 227,
+      "zh": "所以不說眼等業者，由此經中但說有情加行之業，不說諸法作用之業。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 228,
+      "zh": "何謂有情加行之業？謂隨作者意所造作。",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    },
+    {
+      "seq": 229,
+      "zh": "何謂諸法作用之業？謂眼耳等各別功能。",
+      "th": "",
+      "status": "reviewed",
+      "notes": null
+    },
+    {
+      "seq": 230,
+      "zh": "\u0000VERSE\u000018\u0000\u0000VERSE\u000019\u0000\u0000VERSE\u000020\u0000\u0000VERSE\u000021\u0000大乘成業論一卷大唐三藏法師【大】，唐沙門【宋】【元】【明】【宮】詔【大】，制【宋】【元】【明】【宮】言【大】，曰【宋】【元】【明】【宮】今【大】，令【宮】朋【大】，用【宋】【元】【明】坳【大】，㘭【宋】【元】【宮】不【大】，亦【宋】【元】【明】唯【大】，〔－〕【宮】運【大】，速【元】若【大】，云【宮】葡萄【大】，蒲桃【宋】【元】【宮】不【大】，有【元】【明】性【大】，性性【宮】生【大】，性【宋】【元】【明】【宮】任【大】，住【元】用【大】，因【宋】【元】【明】目【大】，自【明】斯【大】，期【明】際【大】，陰【宮】剎【大】，利【宮】礦【大】，鑛【宋】【元】【宮】拘【大】＊，枸【宋】【元】【明】＊計【大】，許【宋】【元】【明】【宮】轉【大】，〔－〕【宋】【元】【明】【宮】至【大】，至後【宋】【元】【明】【宮】異【大】，果【宋】【元】【明】芽【大】，牙【宮】此【大】，比【宋】【元】箭【大】，煎【宋】【元】【明】【宮】此【大】，比【明】如是何過【大】，應如是過【宋】【元】【明】【宮】天【大】，夭【明】咸【大】，減【宮】證【大】，登【宋】【元】【明】【宮】一卷【大】，〔－〕【宋】【元】【明】【宮】",
+      "th": null,
+      "status": "draft",
+      "notes": null
+    }
+  ]
+}

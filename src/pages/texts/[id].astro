@@ -1,0 +1,1192 @@
+---
+// src/pages/texts/[id].astro
+import Base from '../../layouts/Base.astro';
+import { getTextById, getSegmentsByText, getTextsByWork } from '../../lib/db';
+
+const { id } = Astro.params;
+const textId = Number(id);
+const text = getTextById(textId);
+
+if (!text) {
+  return Astro.redirect('/texts');
+}
+
+const segments = getSegmentsByText(textId);
+const untranslated = segments.filter(s => !s.th).length;
+const pct = segments.length ? Math.round(((segments.length - untranslated) / segments.length) * 100) : 0;
+
+const juanSiblings = text.cbeta_id ? getTextsByWork(text.cbeta_id) : [];
+const juanIdx = juanSiblings.findIndex(j => j.id === textId);
+const prevJuan = juanSiblings[juanIdx - 1] ?? null;
+const nextJuan = juanSiblings[juanIdx + 1] ?? null;
+---
+<Base title={`${text.title} — 佛典譯場`}>
+
+  <!-- Sticky header bar -->
+  <div class="editor-header">
+    <div class="editor-header-left">
+      <a href="/texts" class="back-link">← คลังข้อความ</a>
+      <div class="editor-title">
+        <h1 class="text-title">{text.title}</h1>
+        {text.cbeta_id && <span class="cbeta-tag">{text.cbeta_id}</span>}
+        {juanSiblings.length > 1 && (
+          <span class="juan-tag">
+            {prevJuan && <a href={`/texts/${prevJuan.id}`} class="juan-nav" title={`卷${prevJuan.juan}`}>‹</a>}
+            卷{text.juan}{text.total_juans ? `/${text.total_juans}` : ''}
+            {nextJuan && <a href={`/texts/${nextJuan.id}`} class="juan-nav" title={`卷${nextJuan.juan}`}>›</a>}
+          </span>
+        )}
+      </div>
+      <div class="editor-meta">{segments.length} segments</div>
+    </div>
+
+    <div class="editor-header-right">
+      <div class="progress-wrap">
+        <div class="progress-bar-bg">
+          <div id="progress-bar" class="progress-bar-fill" style={`width:${pct}%`}></div>
+        </div>
+        <span id="progress-text" class="progress-label">{pct}%</span>
+      </div>
+
+      <!-- Model + API Key settings -->
+      <div class="key-wrap">
+        <button class="btn btn-ghost btn-sm" id="key-toggle" onclick="toggleKeyInput()" title="ตั้งค่าโมเดลและ API Key">
+          <span id="model-label-short">⚙</span>
+        </button>
+        <div id="key-panel" class="key-panel" style="display:none">
+          <select id="model-select" onchange="onModelChange(this.value)">
+            <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
+            <option value="gemini-2.5-flash-preview-05-20">Gemini 2.5 Flash Preview</option>
+            <option value="gemini-2.5-pro-preview-05-06">Gemini 2.5 Pro Preview</option>
+            <option value="claude-sonnet-4-6">Claude Sonnet 4.6</option>
+            <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5</option>
+          </select>
+          <input id="api-key-input" type="password" autocomplete="off"
+                 placeholder="API Key..." oninput="onKeyInput(this.value)" />
+          <span id="key-status"></span>
+        </div>
+      </div>
+
+      <button class="btn btn-ghost btn-sm" id="btn-translate-all"
+        onclick="translateAll()" style="display:none">
+        ✦ แปลทั้งหมด
+        <span class="count-badge">{untranslated}</span>
+      </button>
+      <a href={`/api/export/${textId}`} class="btn btn-ghost btn-sm" download>
+        ↓ JSON
+      </a>
+    </div>
+  </div>
+
+  <!-- Column headers -->
+  <div class="col-headers">
+    <div class="col-header-num"></div>
+    <div class="col-header-label">
+      <span class="col-label-zh">漢文</span>
+      <span class="col-label-sub">ต้นฉบับภาษาจีนคลาสสิก</span>
+    </div>
+    <div class="col-header-label">
+      <span class="col-label-th">ไทย</span>
+      <span class="col-label-sub">คำแปลภาษาไทย</span>
+    </div>
+  </div>
+
+  <!-- Segments -->
+  <div id="segments-container">
+    {segments.map((seg) => (
+      <div class="segment-row" id={`seg-${seg.id}`} data-id={seg.id} data-seq={seg.seq}>
+
+        <div class="seg-num"><a href={`#seg-${seg.id}`} class="seg-anchor">{seg.seq}</a></div>
+
+        <!-- Chinese source -->
+        <div class="col-zh">
+          <div class={`zh-text ${seg.zh.includes('\n') ? 'verse' : ''}`}>{seg.zh}</div>
+        </div>
+
+        <!-- Thai translation -->
+        <div class="col-th">
+          {seg.th ? (
+            <div class="th-content">
+              <div class={`th-text ${seg.th.includes('\n') ? 'verse' : ''}`}
+                   contenteditable="false"
+                   data-seg-id={seg.id}
+                   suppressContentEditableWarning>{seg.th}</div>
+              {seg.notes ? (
+                <div class="note-wrap">
+                  <span class="note-label">📝</span>
+                  <div class="note-text" contenteditable="false"
+                       data-seg-id={seg.id}>{seg.notes}</div>
+                  <button class="icon-btn edit-note-btn"
+                          onclick={`enterNoteEdit(${seg.id}, this)`} title="แก้ไขหมายเหตุ">✎</button>
+                </div>
+              ) : (
+                <div class="note-wrap note-empty">
+                  <button class="icon-btn add-note-btn"
+                          onclick={`addNote(${seg.id}, this)`}>+ หมายเหตุ</button>
+                </div>
+              )}
+              <div class="seg-actions">
+                <span class={`status-badge status-${seg.status}`}>{seg.status}</span>
+                {seg.status === 'draft' && (
+                  <button class="icon-btn approve-btn"
+                          onclick={`approveSegment(${seg.id}, this)`} title="ยืนยันว่าถูกต้อง">✓ ยืนยัน</button>
+                )}
+                <button class="icon-btn edit-btn"
+                        onclick={`enterEdit(${seg.id}, this)`} title="แก้ไข">✎</button>
+                <button class="icon-btn retranslate-btn" style="display:none"
+                        onclick={`retranslate(${seg.id}, this)`} title="แปลใหม่ด้วย AI">↻</button>
+              </div>
+            </div>
+          ) : (
+            <div class="th-empty">
+              <div class="th-text manual-input"
+                   contenteditable="true"
+                   data-seg-id={seg.id}
+                   onblur="saveManual(this)"></div>
+              <div class="empty-actions">
+                <button class="btn btn-ai btn-sm" style="display:none"
+                        onclick={`translateOne(${seg.id}, \`${seg.zh.replace(/`/g,'\\`')}\`, this)`}>
+                  ✦ AI แปล
+                </button>
+                <span class="translating-indicator" style="display:none;">
+                  <span class="spinner"></span>
+                  <span class="translating-text">กำลังแปล...</span>
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+
+      </div>
+    ))}
+  </div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <style>
+    /* ── Sticky header ── */
+    .editor-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      margin-bottom: 0;
+    }
+
+    .editor-header-left {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .back-link {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .back-link:hover { color: var(--gold); }
+
+    .editor-title {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      min-width: 0;
+    }
+
+    .text-title {
+      font-family: var(--font-zh);
+      font-size: 1.2rem;
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cbeta-tag {
+      font-size: 0.75rem;
+      color: var(--ink-light);
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.1rem 0.45rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .juan-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      font-family: var(--font-zh);
+      font-size: 0.75rem;
+      color: var(--gold);
+      background: var(--gold-pale);
+      border: 1px solid var(--gold-dim);
+      border-radius: 3px;
+      padding: 0.1rem 0.3rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .juan-nav {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.9rem;
+      line-height: 1;
+      padding: 0 0.1rem;
+      opacity: 0.7;
+    }
+    .juan-nav:hover { opacity: 1; }
+
+    .editor-meta {
+      font-size: 0.78rem;
+      color: var(--border);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .editor-header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .progress-bar-bg {
+      width: 100px;
+      height: 5px;
+      background: var(--border-soft);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), #d4a853);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+
+    .progress-label {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      font-weight: 500;
+      min-width: 2.5rem;
+      text-align: right;
+    }
+
+    .no-key-badge {
+      font-size: 0.75rem;
+      color: var(--gold);
+      background: var(--gold-pale);
+      border: 1px solid var(--gold-dim);
+      border-radius: 4px;
+      padding: 0.3rem 0.7rem;
+      font-weight: 500;
+    }
+
+    .count-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      border-radius: 10px;
+      padding: 0 0.4rem;
+      font-size: 0.78rem;
+      margin-left: 0.25rem;
+    }
+
+    .btn-sm {
+      padding: 0.35rem 0.85rem;
+      font-size: 0.82rem;
+    }
+
+    /* ── Column headers ── */
+    .col-headers {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr 1fr;
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-bottom: 2px solid var(--border);
+      border-radius: 6px 6px 0 0;
+      padding: 0.6rem 0;
+      margin-top: 1rem;
+    }
+
+    .col-header-num { }
+
+    .col-header-label {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      padding: 0 1rem;
+    }
+
+    .col-header-label:first-of-type {
+      border-right: 1px solid var(--border);
+    }
+
+    .col-label-zh {
+      font-family: var(--font-zh);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--zh-col);
+      letter-spacing: 0.05em;
+    }
+
+    .col-label-th {
+      font-family: var(--font-th);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--th-col);
+    }
+
+    .col-label-sub {
+      font-size: 0.72rem;
+      color: var(--ink-light);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Segment rows ── */
+    .segment-row {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr 1fr;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border-soft);
+      transition: background 0.12s;
+    }
+
+    .segment-row:last-child {
+      border-bottom: 1px solid var(--border);
+      border-radius: 0 0 6px 6px;
+    }
+
+    .segment-row:hover { background: rgba(184,148,63,0.03); }
+
+    .seg-num {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 1.1rem;
+      font-size: 0.65rem;
+      color: var(--border);
+      font-family: monospace;
+      border-right: 1px solid var(--border-soft);
+    }
+
+    .seg-anchor {
+      color: inherit;
+      text-decoration: none;
+    }
+    .seg-anchor:hover { color: var(--gold); }
+
+    .col-zh, .col-th {
+      padding: 1rem 1.25rem;
+    }
+
+    .col-zh {
+      border-right: 1px solid var(--border);
+    }
+
+    /* ── Chinese text ── */
+    .zh-text {
+      font-family: var(--font-zh);
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 2.0;
+      color: var(--zh-col);
+      white-space: pre-wrap;
+    }
+
+    .zh-text.verse {
+      font-size: 1rem;
+      line-height: 2.3;
+      letter-spacing: 0.05em;
+      border-left: 3px solid var(--gold-dim);
+      padding-left: 0.85rem;
+      color: #4a2c0a;
+      background: rgba(184,148,63,0.04);
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* ── Thai text ── */
+    .th-text {
+      font-family: var(--font-th);
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 2.4;
+      color: var(--th-col);
+      white-space: pre-wrap;
+      outline: none;
+      border-radius: 4px;
+      transition: background 0.15s, box-shadow 0.15s;
+      min-height: 2.4em;
+      width: 100%;
+      display: block;
+    }
+
+    .th-text:focus {
+      background: rgba(184,148,63,0.06);
+      box-shadow: 0 0 0 2px rgba(184,148,63,0.2);
+      padding: 0.3rem 0.5rem;
+    }
+
+    .th-text.verse {
+      line-height: 2.5;
+      border-left: 3px solid #2a6b4a;
+      padding-left: 0.85rem;
+      color: #0a3020;
+      background: rgba(42,107,74,0.04);
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* ── Manual input placeholder ── */
+    .manual-input:empty::before {
+      content: attr(data-placeholder);
+      color: var(--border);
+      pointer-events: none;
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    /* ── Actions ── */
+    .th-content { position: relative; }
+
+    .seg-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .th-empty {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .empty-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 1.8rem;
+    }
+
+    .btn-ai {
+      background: var(--gold-pale);
+      color: #7a5f1a;
+      border: 1px solid var(--gold-dim);
+      font-size: 0.78rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 4px;
+    }
+    .btn-ai:hover {
+      background: var(--gold-dim);
+      color: white;
+      border-color: var(--gold);
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--ink-light);
+      padding: 0.15rem 0.45rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.15s;
+      line-height: 1;
+    }
+    .icon-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    .approve-btn {
+      color: #065f46;
+      border-color: #a7f3d0;
+      background: #d1fae5;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .approve-btn:hover {
+      background: #065f46;
+      color: white;
+      border-color: #065f46;
+    }
+
+    .edit-btn {
+      color: #1a5276;
+      border-color: #aed6f1;
+      background: #ebf5fb;
+    }
+    .edit-btn:hover { background: #1a5276; color: white; border-color: #1a5276; }
+
+    .lock-btn {
+      color: #7d6608;
+      border-color: #f9e79f;
+      background: #fefce8;
+    }
+    .lock-btn:hover { background: #7d6608; color: white; border-color: #7d6608; }
+
+    .th-text[contenteditable="true"] {
+      background: rgba(184,148,63,0.06);
+      box-shadow: 0 0 0 2px rgba(184,148,63,0.3);
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    /* ── API Key panel ── */
+    .key-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+    }
+
+    .key-panel {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.6rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      min-width: 300px;
+      z-index: 20;
+    }
+
+    .key-panel select {
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      padding: 0.35rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: white;
+      color: var(--ink);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .key-panel input {
+      flex: 1;
+      font-family: monospace;
+      font-size: 0.82rem;
+      padding: 0.35rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      width: auto;
+      min-width: 200px;
+    }
+
+    #key-status {
+      font-size: 0.75rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .note-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.35rem;
+      margin-top: 0.4rem;
+    }
+
+    .note-label {
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      margin-top: 0.3rem;
+      opacity: 0.6;
+    }
+
+    .note-text {
+      flex: 1;
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      background: #fffbeb;
+      border-left: 2px solid var(--gold-dim);
+      padding: 0.25rem 0.5rem;
+      border-radius: 0 3px 3px 0;
+      font-family: var(--font-ui);
+      line-height: 1.6;
+      white-space: pre-wrap;
+      outline: none;
+      min-height: 1.4em;
+    }
+
+    .note-text[contenteditable="true"] {
+      box-shadow: 0 0 0 2px rgba(184,148,63,0.3);
+      background: #fffde8;
+    }
+
+    .note-text:empty::before {
+      content: 'พิมพ์หมายเหตุ...';
+      color: var(--border);
+      font-style: italic;
+      pointer-events: none;
+    }
+
+    .note-empty { margin-top: 0.3rem; }
+
+    .add-note-btn {
+      font-size: 0.72rem;
+      color: var(--border);
+      border-color: var(--border-soft);
+      background: transparent;
+      padding: 0.1rem 0.4rem;
+    }
+    .add-note-btn:hover { color: var(--gold); border-color: var(--gold-dim); }
+
+    .edit-note-btn {
+      flex-shrink: 0;
+      font-size: 0.78rem;
+      padding: 0.1rem 0.35rem;
+      color: var(--ink-light);
+      border-color: var(--border-soft);
+      background: transparent;
+    }
+    .edit-note-btn:hover { color: var(--gold); border-color: var(--gold-dim); }
+
+    .lock-note-btn {
+      flex-shrink: 0;
+      font-size: 0.78rem;
+      padding: 0.1rem 0.35rem;
+      color: #7d6608;
+      border-color: #f9e79f;
+      background: #fefce8;
+    }
+    .lock-note-btn:hover { background: #7d6608; color: white; border-color: #7d6608; }
+
+    .translating-text {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      margin-left: 0.3rem;
+      vertical-align: middle;
+    }
+
+    /* ── Animations ── */
+    .segment-row.done-flash { animation: flash 0.7s ease; }
+
+    @keyframes flash {
+      0%   { background: rgba(184,148,63,0.15); }
+      100% { background: transparent; }
+    }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--ink);
+      color: var(--gold-dim);
+      padding: 0.75rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      display: none;
+      border-left: 3px solid var(--gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      font-family: var(--font-ui);
+      max-width: 320px;
+      z-index: 100;
+    }
+  </style>
+
+  <script define:vars={{ textId, totalSegs: segments.length, untranslated }}>
+    let hasApiKey = false;
+
+    const MODEL_LABELS = {
+      'gemini-3-flash-preview':         'G3 Flash',
+      'gemini-2.5-flash-preview-05-20': 'G2.5 Flash',
+      'gemini-2.5-pro-preview-05-06':   'G2.5 Pro',
+      'claude-sonnet-4-6':              'Sonnet',
+      'claude-haiku-4-5-20251001':      'Haiku',
+    };
+
+    const MODEL_PLACEHOLDERS = {
+      anthropic: 'sk-ant-...',
+      google:    'AIza...',
+    };
+
+    function getProvider(model) {
+      return model.startsWith('gemini') ? 'google' : 'anthropic';
+    }
+
+    function getStoredModel() {
+      return localStorage.getItem('dhamma_model') || 'gemini-3-flash-preview';
+    }
+
+    function getStoredKey(model) {
+      const provider = getProvider(model || getStoredModel());
+      return localStorage.getItem(`apikey_${provider}`) || '';
+    }
+
+    function toggleKeyInput() {
+      const panel = document.getElementById('key-panel');
+      const isVisible = panel.style.display !== 'none';
+      panel.style.display = isVisible ? 'none' : 'flex';
+      if (!isVisible) {
+        const model = getStoredModel();
+        document.getElementById('model-select').value = model;
+        document.getElementById('api-key-input').value = getStoredKey(model);
+        document.getElementById('api-key-input').placeholder = MODEL_PLACEHOLDERS[getProvider(model)];
+      }
+    }
+    window.toggleKeyInput = toggleKeyInput;
+
+    function onModelChange(model) {
+      localStorage.setItem('dhamma_model', model);
+      const input = document.getElementById('api-key-input');
+      input.value = getStoredKey(model);
+      input.placeholder = MODEL_PLACEHOLDERS[getProvider(model)];
+      document.getElementById('model-label-short').textContent = MODEL_LABELS[model] || '⚙';
+      // re-check key validity
+      onKeyInput(input.value);
+    }
+    window.onModelChange = onModelChange;
+
+    function onKeyInput(val) {
+      const trimmed = val.trim();
+      const model = getStoredModel();
+      const provider = getProvider(model);
+      localStorage.setItem(`apikey_${provider}`, trimmed);
+      const statusEl = document.getElementById('key-status');
+      const valid = trimmed.length > 10;
+      if (valid) {
+        hasApiKey = true;
+        statusEl.textContent = '✓';
+        statusEl.style.color = '#065f46';
+        showAiButtons();
+      } else if (!trimmed) {
+        hasApiKey = false;
+        statusEl.textContent = '';
+        hideAiButtons();
+      } else {
+        statusEl.textContent = '…';
+        statusEl.style.color = 'var(--ink-light)';
+      }
+    }
+    window.onKeyInput = onKeyInput;
+
+    function showAiButtons() {
+      if (untranslated > 0) {
+        document.getElementById('btn-translate-all').style.display = 'inline-flex';
+      }
+      document.querySelectorAll('.retranslate-btn').forEach(b => b.style.display = 'inline-block');
+      document.querySelectorAll('.btn-ai').forEach(b => b.style.display = 'inline-block');
+    }
+
+    function hideAiButtons() {
+      document.getElementById('btn-translate-all').style.display = 'none';
+      document.querySelectorAll('.retranslate-btn').forEach(b => b.style.display = 'none');
+      document.querySelectorAll('.btn-ai').forEach(b => b.style.display = 'none');
+    }
+
+    function initKeyCheck() {
+      document.querySelectorAll('.manual-input').forEach(el => {
+        el.setAttribute('data-placeholder', 'คลิกเพื่อพิมพ์คำแปล...');
+      });
+
+      const model = getStoredModel();
+      const key = getStoredKey(model);
+      document.getElementById('model-label-short').textContent = MODEL_LABELS[model] || '⚙';
+      if (key) {
+        hasApiKey = true;
+        showAiButtons();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initKeyCheck);
+
+    // ── Enter → ช่องถัดไป, Shift+Enter → ขึ้นบรรทัด ─────────────────────
+
+    document.getElementById('segments-container').addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      if (e.shiftKey) return; // Shift+Enter = ขึ้นบรรทัดใหม่ตามปกติ
+
+      const el = e.target;
+      if (!el.classList.contains('th-text')) return;
+
+      e.preventDefault();
+
+      // บันทึกช่องปัจจุบันก่อน
+      el.blur();
+
+      // หา segment row ปัจจุบัน
+      const currentRow = el.closest('.segment-row');
+      const rows = [...document.querySelectorAll('.segment-row')];
+      const idx = rows.indexOf(currentRow);
+      if (idx === -1 || idx >= rows.length - 1) return;
+
+      // โฟกัสไปช่อง th-text ของ row ถัดไป
+      const nextRow = rows[idx + 1];
+      const nextInput = nextRow.querySelector('.th-text');
+      if (nextInput) {
+        nextInput.focus();
+        // เลื่อน cursor ไปท้ายสุด
+        const range = document.createRange();
+        const sel = window.getSelection();
+        range.selectNodeContents(nextInput);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    });
+
+    // ── Helpers ──────────────────────────────────────────────────────────────
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 3000);
+    }
+
+    function updateProgress(translatedCount) {
+      const pct = Math.round((translatedCount / totalSegs) * 100);
+      document.getElementById('progress-bar').style.width = pct + '%';
+      document.getElementById('progress-text').textContent = pct + '%';
+    }
+
+    // ── Shared HTML builder for translated segments ───────────────────────
+
+    function esc(s) {
+      return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    function translatedHTML(id, th, notes, status) {
+      const verse = th.includes('\n') ? 'verse' : '';
+      const approveBtn = status === 'draft'
+        ? `<button class="icon-btn approve-btn" onclick="approveSegment(${id}, this)">✓ ยืนยัน</button>`
+        : '';
+      const notesHtml = notes
+        ? `<div class="note-wrap">
+             <span class="note-label">📝</span>
+             <div class="note-text" contenteditable="false" data-seg-id="${id}">${esc(notes)}</div>
+             <button class="icon-btn edit-note-btn" onclick="enterNoteEdit(${id}, this)" title="แก้ไขหมายเหตุ">✎</button>
+           </div>`
+        : `<div class="note-wrap note-empty">
+             <button class="icon-btn add-note-btn" onclick="addNote(${id}, this)">+ หมายเหตุ</button>
+           </div>`;
+      const retStyle = hasApiKey ? '' : ' style="display:none"';
+      return `
+        <div class="th-content">
+          <div class="th-text ${verse}" contenteditable="false" data-seg-id="${id}">${esc(th)}</div>
+          ${notesHtml}
+          <div class="seg-actions">
+            <span class="status-badge status-${status}">${status}</span>
+            ${approveBtn}
+            <button class="icon-btn edit-btn" onclick="enterEdit(${id}, this)" title="แก้ไข">✎</button>
+            <button class="icon-btn retranslate-btn"${retStyle}
+                    onclick="retranslate(${id}, this)" title="แปลใหม่">↻</button>
+          </div>
+        </div>`;
+    }
+
+    // ── Edit / Lock ───────────────────────────────────────────────────────
+
+    function enterEdit(segId, btn) {
+      const row = document.getElementById('seg-' + segId);
+      const thEl = row.querySelector('.th-text');
+      thEl.contentEditable = 'true';
+      thEl.focus();
+      // cursor ไปท้ายสุด
+      const range = document.createRange();
+      const sel = window.getSelection();
+      range.selectNodeContents(thEl);
+      range.collapse(false);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      // เปลี่ยนปุ่มเป็น 🔒
+      btn.textContent = '🔒';
+      btn.title = 'บันทึกและล็อค';
+      btn.className = 'icon-btn lock-btn';
+      btn.onclick = () => exitEdit(segId, btn);
+    }
+    window.enterEdit = enterEdit;
+
+    function exitEdit(segId, btn) {
+      const row = document.getElementById('seg-' + segId);
+      const thEl = row.querySelector('.th-text');
+      if (!thEl || thEl.contentEditable !== 'true') return;
+      thEl.contentEditable = 'false';
+      saveEdit(thEl);
+      // เปลี่ยนปุ่มกลับเป็น ✎
+      btn.textContent = '✎';
+      btn.title = 'แก้ไข';
+      btn.className = 'icon-btn edit-btn';
+      btn.onclick = () => enterEdit(segId, btn);
+    }
+    window.exitEdit = exitEdit;
+
+    // ── Note edit / lock ──────────────────────────────────────────────────
+
+    function enterNoteEdit(segId, btn) {
+      const row = document.getElementById('seg-' + segId);
+      const noteEl = row.querySelector('.note-text');
+      if (!noteEl) return;
+      noteEl.contentEditable = 'true';
+      noteEl.focus();
+      const range = document.createRange();
+      const sel = window.getSelection();
+      range.selectNodeContents(noteEl);
+      range.collapse(false);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      btn.textContent = '🔒';
+      btn.title = 'บันทึกหมายเหตุ';
+      btn.className = 'icon-btn lock-note-btn';
+      btn.onclick = () => exitNoteEdit(segId, btn);
+    }
+    window.enterNoteEdit = enterNoteEdit;
+
+    async function exitNoteEdit(segId, btn) {
+      const row = document.getElementById('seg-' + segId);
+      const noteEl = row?.querySelector('.note-text');
+      if (!noteEl || noteEl.contentEditable !== 'true') return;
+      noteEl.contentEditable = 'false';
+      const notes = noteEl.textContent.trim();
+      if (!notes) {
+        // ลบหมายเหตุ → กลับเป็นปุ่ม "+ หมายเหตุ"
+        const wrap = noteEl.closest('.note-wrap');
+        wrap.outerHTML = `<div class="note-wrap note-empty">
+          <button class="icon-btn add-note-btn" onclick="addNote(${segId}, this)">+ หมายเหตุ</button>
+        </div>`;
+      } else {
+        btn.textContent = '✎';
+        btn.title = 'แก้ไขหมายเหตุ';
+        btn.className = 'icon-btn edit-note-btn';
+        btn.onclick = () => enterNoteEdit(segId, btn);
+      }
+      await fetch('/api/segment', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ segment_id: segId, notes }),
+      });
+    }
+    window.exitNoteEdit = exitNoteEdit;
+
+    function addNote(segId, btn) {
+      const wrap = btn.closest('.note-wrap');
+      wrap.outerHTML = `<div class="note-wrap">
+        <span class="note-label">📝</span>
+        <div class="note-text" contenteditable="true" data-seg-id="${segId}"></div>
+        <button class="icon-btn lock-note-btn" onclick="exitNoteEdit(${segId}, this)" title="บันทึกหมายเหตุ">🔒</button>
+      </div>`;
+      // หา wrap ใหม่แล้ว focus
+      const row = document.getElementById('seg-' + segId);
+      row?.querySelector('.note-text')?.focus();
+    }
+    window.addNote = addNote;
+
+    // blur อัตโนมัติ
+    document.getElementById('segments-container').addEventListener('blur', e => {
+      const el = e.target;
+      if (el.classList.contains('th-text') && el.contentEditable === 'true') {
+        if (e.relatedTarget?.classList.contains('lock-btn')) return;
+        const row = el.closest('.segment-row');
+        const lockBtn = row?.querySelector('.lock-btn');
+        if (lockBtn) exitEdit(Number(el.dataset.segId), lockBtn);
+      } else if (el.classList.contains('note-text') && el.contentEditable === 'true') {
+        if (e.relatedTarget?.classList.contains('lock-note-btn')) return;
+        const row = el.closest('.segment-row');
+        const lockBtn = row?.querySelector('.lock-note-btn');
+        if (lockBtn) exitNoteEdit(Number(el.dataset.segId), lockBtn);
+      }
+    }, true);
+
+    // ── Save existing translation ─────────────────────────────────────────
+
+    async function saveEdit(el) {
+      const segId = Number(el.dataset.segId);
+      const th = el.textContent.trim();
+      await fetch('/api/segment', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ segment_id: segId, th }),
+      });
+    }
+    window.saveEdit = saveEdit;
+
+    // ── Approve (draft → reviewed) ────────────────────────────────────────
+
+    async function approveSegment(segId, btn) {
+      await fetch('/api/segment', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ segment_id: segId, status: 'reviewed' }),
+      });
+      const row = document.getElementById('seg-' + segId);
+      const badge = row?.querySelector('.status-badge');
+      if (badge) { badge.className = 'status-badge status-reviewed'; badge.textContent = 'reviewed'; }
+      btn.remove();
+    }
+    window.approveSegment = approveSegment;
+
+    // ── Save manual input (empty segment → filled) ────────────────────────
+
+    async function saveManual(el) {
+      const th = el.textContent.trim();
+      if (!th) return;
+      const segId = Number(el.dataset.segId);
+
+      await fetch('/api/segment', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ segment_id: segId, th, status: 'reviewed' }),
+      });
+
+      const row = document.getElementById('seg-' + segId);
+      const colTh = row.querySelector('.col-th');
+      colTh.innerHTML = translatedHTML(segId, th, '', 'reviewed');
+      row.classList.add('done-flash');
+
+      const remaining = document.querySelectorAll('.th-empty').length;
+      updateProgress(totalSegs - remaining);
+      if (remaining === 0) document.getElementById('btn-translate-all').style.display = 'none';
+    }
+    window.saveManual = saveManual;
+
+    // ── Translate single segment + all below (AI) ────────────────────────
+
+    async function translateOne(segId, zh, btn) {
+      const allRows = [...document.querySelectorAll('.segment-row')];
+      const currentRow = document.getElementById('seg-' + segId);
+      const currentIdx = allRows.indexOf(currentRow);
+
+      // รวบรวม segment ที่ยังไม่แปล ตั้งแต่ row นี้ลงไป
+      const targetRows = allRows.slice(currentIdx).filter(r => r.querySelector('.th-empty'));
+      const segments = targetRows.map(r => ({
+        id: Number(r.dataset.id),
+        seq: Number(r.dataset.seq),
+        zh: r.querySelector('.zh-text')?.textContent ?? '',
+      }));
+
+      // แสดง indicator ทุก row ที่จะแปล
+      for (const r of targetRows) {
+        const emptyDiv = r.querySelector('.th-empty');
+        const b = emptyDiv?.querySelector('.btn-ai');
+        const ind = emptyDiv?.querySelector('.translating-indicator');
+        if (b) b.style.display = 'none';
+        if (ind) ind.style.display = 'inline-flex';
+      }
+
+      try {
+        const res = await fetch('/api/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Api-Key': getStoredKey(getStoredModel()), 'X-Model': getStoredModel() },
+          body: JSON.stringify({ segments }),
+        });
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.error);
+
+        for (const t of (data.results ?? [])) {
+          const r = document.getElementById('seg-' + t.id);
+          if (!r || !t.th) continue;
+          r.querySelector('.col-th').innerHTML = translatedHTML(t.id, t.th, t.notes ?? '', 'draft');
+          r.classList.add('done-flash');
+        }
+
+        const remaining = document.querySelectorAll('.th-empty').length;
+        updateProgress(totalSegs - remaining);
+        if (remaining === 0) document.getElementById('btn-translate-all').style.display = 'none';
+
+      } catch (err) {
+        // คืน indicator ให้ row แรก
+        const emptyDiv = currentRow.querySelector('.th-empty');
+        const b = emptyDiv?.querySelector('.btn-ai');
+        const ind = emptyDiv?.querySelector('.translating-indicator');
+        if (b) b.style.display = 'inline-block';
+        if (ind) ind.style.display = 'none';
+        showToast('❌ ' + err.message);
+      }
+    }
+    window.translateOne = translateOne;
+
+    // ── Re-translate existing segment ─────────────────────────────────────
+
+    async function retranslate(segId, btn) {
+      const row = document.getElementById('seg-' + segId);
+      const zhText = row.querySelector('.zh-text')?.textContent ?? '';
+      const thEl = row.querySelector('.th-text');
+      if (!thEl) return;
+
+      btn.textContent = '⟳';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Api-Key': getStoredKey(getStoredModel()), 'X-Model': getStoredModel() },
+          body: JSON.stringify({ segment_id: segId, zh: zhText }),
+        });
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.error);
+        row.querySelector('.col-th').innerHTML = translatedHTML(segId, data.th, data.notes ?? '', 'draft');
+        row.classList.add('done-flash');
+      } catch (err) {
+        showToast('❌ ' + err.message);
+      } finally {
+        btn.textContent = '↻';
+        btn.disabled = false;
+      }
+    }
+    window.retranslate = retranslate;
+
+    // ── Translate ALL (batch mode) ────────────────────────────────────────
+
+    async function translateAll() {
+      const btn = document.getElementById('btn-translate-all');
+      btn.disabled = true;
+      btn.innerHTML = `กำลังแปล... <span class="spinner" style="margin-left:.4rem"></span>`;
+
+      try {
+        const res = await fetch('/api/translate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Api-Key': getStoredKey(getStoredModel()),
+            'X-Model': getStoredModel(),
+          },
+          body: JSON.stringify({ text_id: textId }),
+        });
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.error);
+
+        // Render ผลลัพธ์ทั้งหมด
+        for (const t of (data.results ?? [])) {
+          const row = document.getElementById('seg-' + t.id);
+          if (!row || !t.th) continue;
+          row.querySelector('.col-th').innerHTML = translatedHTML(t.id, t.th, t.notes ?? '', 'draft');
+          row.classList.add('done-flash');
+        }
+
+        const remaining = document.querySelectorAll('.th-empty').length;
+        updateProgress(totalSegs - remaining);
+        btn.style.display = 'none';
+        showToast(`✓ แปลแล้ว ${data.translated} segments — รอการยืนยัน`);
+
+      } catch (err) {
+        showToast('❌ ' + err.message);
+        btn.disabled = false;
+        btn.innerHTML = `✦ แปลทั้งหมด <span class="count-badge">${untranslated}</span>`;
+      }
+    }
+    window.translateAll = translateAll;
+  </script>
+</Base>

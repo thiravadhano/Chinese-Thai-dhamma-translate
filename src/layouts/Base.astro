@@ -1,0 +1,231 @@
+---
+// src/layouts/Base.astro
+export interface Props {
+  title?: string;
+}
+const { title = '佛典譯場' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&family=Noto+Serif+TC:wght@300;400;600&family=Noto+Serif+Thai:wght@400;500;600&family=IM+Fell+English+SC&display=swap" rel="stylesheet" />
+  <style is:global>
+    :root {
+      --ink:        #1a1410;
+      --ink-light:  #6b5340;
+      --parchment:  #f5efe4;
+      --cream:      #faf7f2;
+      --gold:       #b8943f;
+      --gold-dim:   #d4b86a;
+      --gold-pale:  #f0e6c8;
+      --red-seal:   #9b2a2a;
+      --border:     #ddd0b8;
+      --border-soft:#ece5d5;
+      --zh-col:     #2d1a0a;
+      --th-col:     #0d2b1e;
+
+      /* Typography */
+      --font-ui:      'Sarabun', 'Noto Serif Thai', sans-serif;
+      --font-zh:      'Noto Serif TC', serif;
+      --font-th:      'Noto Serif Thai', 'Sarabun', serif;
+      --font-en:      'IM Fell English SC', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { background: var(--ink); }
+
+    body {
+      font-family: var(--font-ui);
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.7;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Decorative top bar */
+    body::before {
+      content: '';
+      display: block;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red-seal) 0%, var(--gold) 50%, var(--red-seal) 100%);
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--ink);
+      color: var(--parchment);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      border-bottom: 1px solid rgba(184,148,63,0.4);
+    }
+
+    header .logo {
+      font-family: var(--font-zh);
+      font-size: 1.7rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      color: var(--gold-dim);
+      line-height: 1;
+    }
+
+    header .header-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    header .subtitle-zh {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      color: rgba(212,184,106,0.7);
+      letter-spacing: 0.06em;
+      font-weight: 400;
+    }
+
+    nav {
+      margin-left: auto;
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    nav a {
+      color: rgba(212,184,106,0.8);
+      text-decoration: none;
+      font-size: 0.875rem;
+      letter-spacing: 0.03em;
+      padding: 0.35rem 0.85rem;
+      border-radius: 4px;
+      transition: all 0.15s;
+      font-weight: 400;
+    }
+    nav a:hover {
+      color: var(--gold-dim);
+      background: rgba(255,255,255,0.07);
+    }
+
+    /* ── Main ── */
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-ui);
+      font-weight: 500;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.75rem;
+      box-shadow: 0 1px 6px rgba(26,20,16,0.05);
+    }
+
+    /* ── Buttons ── */
+    button, .btn {
+      font-family: var(--font-ui);
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.15s;
+      line-height: 1.5;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: white;
+      border: 1px solid var(--gold);
+      letter-spacing: 0.01em;
+    }
+    .btn-primary:hover { background: #a07930; border-color: #a07930; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink-light);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold-pale);
+    }
+
+    /* ── Status badges ── */
+    .status-badge {
+      display: inline-block;
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      font-weight: 500;
+      padding: 0.15rem 0.55rem;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .status-draft    { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .status-reviewed { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+    .status-final    { background: #dbeafe; color: #1e3a8a; border: 1px solid #bfdbfe; }
+
+    /* ── Form inputs ── */
+    textarea, input[type="text"], input[type="url"], input[type="number"] {
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.6rem 0.85rem;
+      width: 100%;
+      background: white;
+      color: var(--ink);
+      resize: vertical;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      line-height: 1.6;
+    }
+    textarea:focus, input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(184,148,63,0.12);
+    }
+
+    /* ── Spinner ── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      width: 1rem; height: 1rem;
+      border: 2px solid var(--border);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-text">
+      <div class="logo">佛典譯場</div>
+      <div class="subtitle-zh">แปลพระไตรปิฎกจีน สู่ภาษาไทย</div>
+    </div>
+    <nav>
+      <a href="/texts">คลังข้อความ</a>
+    </nav>
+  </header>
+  <main>
+    <slot />
+  </main>
+</body>
+</html>

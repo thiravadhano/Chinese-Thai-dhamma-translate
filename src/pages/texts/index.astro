@@ -1,0 +1,277 @@
+---
+// src/pages/texts/index.astro
+import Base from '../../layouts/Base.astro';
+import { getAllTexts, getSegmentsByText } from '../../lib/db';
+
+const texts = getAllTexts();
+
+const textsWithStats = texts.map(t => {
+  const segs = getSegmentsByText(t.id);
+  const translated = segs.filter(s => s.th).length;
+  return { ...t, total: segs.length, translated };
+});
+---
+<Base title="คลังข้อความ — 佛典譯場">
+  <div class="library-header">
+    <div>
+      <h1 class="library-title">คลังข้อความ</h1>
+      <p class="library-meta">{textsWithStats.length} รายการ</p>
+    </div>
+  </div>
+
+  {textsWithStats.length === 0 ? (
+    <div class="empty-state card">
+      <div class="empty-char">典</div>
+      <div class="empty-msg">ยังไม่มีข้อความในคลัง</div>
+      <div class="empty-hint">
+        นำเข้าผ่าน Claude Code:<br/>
+        <code>/ingest T1609</code>
+      </div>
+    </div>
+  ) : (
+    <div class="text-list">
+      {textsWithStats.map(t => {
+        const pct = t.total ? Math.round((t.translated / t.total) * 100) : 0;
+        const done = pct === 100;
+        return (
+          <div class="text-card-wrap">
+          <a href={`/texts/${t.id}`} class="text-card">
+            <div class="card-source">
+              <span class={`source-badge source-${t.source}`}>{t.source}</span>
+            </div>
+
+            <div class="card-body">
+              <div class="card-title">{t.title}</div>
+              <div class="card-sub">
+                {t.cbeta_id && <span class="card-cbeta">{t.cbeta_id}</span>}
+                {t.juan > 1 || (t.total_juans && t.total_juans > 1) ? (
+                  <span class="card-juan">卷{t.juan}{t.total_juans ? `/${t.total_juans}` : ''}</span>
+                ) : null}
+              </div>
+            </div>
+
+            <div class="card-progress">
+              <div class="progress-stats">
+                <span class="progress-pct" style={done ? 'color:var(--gold)' : ''}>{pct}%</span>
+                <span class="progress-detail">{t.translated}/{t.total}</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill"
+                     style={`width:${pct}%; background:${done ? 'var(--gold)' : 'var(--gold-dim)'}`}></div>
+              </div>
+            </div>
+
+            <div class="card-arrow">→</div>
+          </a>
+          {done && (
+            <a href={`/sutras/${t.id}`} class="read-btn" title="อ่านฉบับแปล">📖</a>
+          )}
+          </div>
+        );
+      })}
+    </div>
+  )}
+
+  <style>
+    .library-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.75rem;
+    }
+
+    .library-title {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .library-meta {
+      font-size: 0.85rem;
+      color: var(--ink-light);
+      margin-top: 0.2rem;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+
+    .empty-char {
+      font-family: var(--font-zh);
+      font-size: 4rem;
+      font-weight: 300;
+      color: var(--border);
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+
+    .empty-msg {
+      color: var(--ink-light);
+      font-size: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .empty-hint {
+      color: var(--ink-light);
+      font-size: 0.875rem;
+      line-height: 2;
+    }
+    .empty-hint code {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.15rem 0.6rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: var(--gold);
+    }
+
+    .text-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .text-card-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .text-card-wrap .text-card { flex: 1; }
+
+    .read-btn {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.4rem;
+      height: 2.4rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.15s;
+      box-shadow: 0 1px 3px rgba(26,20,16,0.04);
+    }
+    .read-btn:hover {
+      border-color: var(--gold-dim);
+      box-shadow: 0 3px 12px rgba(184,148,63,0.12);
+      transform: translateY(-1px);
+    }
+
+    .text-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.15s;
+      box-shadow: 0 1px 3px rgba(26,20,16,0.04);
+    }
+    .text-card:hover {
+      border-color: var(--gold-dim);
+      box-shadow: 0 3px 12px rgba(184,148,63,0.12);
+      transform: translateY(-1px);
+    }
+
+    .card-source { flex-shrink: 0; }
+
+    .source-badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+    }
+    .source-cbeta   { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .source-upload  { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    .source-manual  { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+
+    .card-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-title {
+      font-family: var(--font-zh);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-sub {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.15rem;
+    }
+
+    .card-cbeta {
+      font-size: 0.75rem;
+      color: var(--ink-light);
+    }
+
+    .card-juan {
+      font-family: var(--font-zh);
+      font-size: 0.72rem;
+      color: var(--gold);
+      background: var(--gold-pale);
+      border: 1px solid var(--gold-dim);
+      border-radius: 3px;
+      padding: 0 0.3rem;
+    }
+
+    .card-progress {
+      flex-shrink: 0;
+      width: 120px;
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.3rem;
+    }
+
+    .progress-pct {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink-light);
+    }
+
+    .progress-detail {
+      font-size: 0.75rem;
+      color: var(--border);
+    }
+
+    .progress-bar-bg {
+      height: 4px;
+      background: var(--border-soft);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.3s;
+    }
+
+    .card-arrow {
+      font-size: 1rem;
+      color: var(--border);
+      flex-shrink: 0;
+      transition: color 0.15s;
+    }
+    .text-card:hover .card-arrow { color: var(--gold); }
+  </style>
+</Base>
